@@ -57,5 +57,14 @@ def detail(request, team_id):
             render(request, 'team/index.html', context)
     else:
         form = AddPlayerForm()
-    context = {'team': team, 'form': form}
+    team_players = team.
+    available_players = Player.objects.exclude()
+    context = {'team': team, 'form': form, 'available_players': available_players}
     return render(request, 'team/detail.html', context)
+
+
+
+
+
+
+

@@ -3,13 +3,6 @@
 {% block header %}
 	<h1>{{ team.team_name }}</h1><br />
 {% endblock %}
-{% block players_list %}
-	<ul class="unstyled">
-		{% for player in team.players.all %}
-			<li><a href="/player/{{ player.id }}">{{ player.number }} {{ player.first_name }} {{ player.last_name }}</a></li>
-		{% endfor %}
-	</ul>
-{% endblock %}
 
 {% block form %}
 	<form action="{% url 'team:detail' team.id %}" method="post">
@@ -20,3 +13,14 @@
 	<a href="{% url 'team:index' %}">Back to Teams</a>
 {% endblock %}
 
+{% block players_list %}
+	<ul class="unstyled">
+		{% for player in team.players.all %}
+			<li><a href="/player/{{ player.id }}">{{ player.number }} {{ player.first_name }} {{ player.last_name }}</a></li>
+		{% endfor %}
+	</ul>
+{% endblock %}
+
+{% block available_players %}
+
+{% endblock %}
