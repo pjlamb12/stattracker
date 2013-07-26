@@ -1,0 +1,30 @@
+{% extends 'team-base.html' %}
+
+{% block header %}
+	<h1>Teams</h1><br />
+{% endblock %}
+
+{% block form %}
+	<form action="{% url 'team:index' %}" method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value="Add Team" />
+	</form>
+{% endblock %}
+
+{% block teams_list %}
+	{% if team_list %}
+		<form action="{% url 'team:index' %}" method="post">
+		{% csrf_token %}
+			{% for team in team_list %}
+				<label for="team{{team.id}}" >
+					<input type="radio" id="team{{team.id}}" name="delete-team" value="{{ team.id }}" />
+					<a href="{% url 'team:detail' team.id %}">{{team.team_name}}</a>
+				</label>
+			{% endfor %}
+			<input type="submit" name="delete" value="Delete Team" />
+		</form>
+	{% endif %}
+{% endblock %}
+
+

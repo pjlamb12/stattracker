@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block header %}
+	<h1>StatTracker</h1><br />
+{% endblock %}
+
+{% block site_links %}
+	<ul class="unstyled">
+		<li>
+			<a href="{% url 'team:index' %}">View Teams</a>
+		</li>
+		<li>
+			<a href="{% url 'player:index' %}">View Player</a>
+		</li>
+	</ul>
+{% endblock %}

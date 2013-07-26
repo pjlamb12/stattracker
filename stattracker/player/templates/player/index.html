@@ -1,0 +1,29 @@
+{% extends 'player-base.html' %}
+
+{% block header%}
+	<h1>Players</h1><br />
+{% endblock %}
+
+{% block form %}
+	<form action="{% url 'player:index' %}" method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" name="add" value="Add Player" />
+	</form>
+{% endblock %}
+
+{% block players_list %}
+	{% if player_list %}
+		<form action="{% url 'player:index' %}" method="post">
+		{% csrf_token %}
+			{% for player in player_list %}
+				<label for="player{{player.id}}" >
+					<input type="radio" id="player{{player.id}}" name="delete-player" value="{{ player.id }}" />
+					<a href="{% url 'player:detail' player.id %}">{{player.first_name}} {{player.last_name}}</a>
+				</label>
+			{% endfor %}
+			<input type="submit" name="delete" value="Delete Player" />
+		</form>
+	{% endif %}
+{% endblock %}
+

@@ -1,0 +1,17 @@
+{% extends 'player-base.html' %}
+
+
+{% block header %}
+	<h1>{{player.first_name}} {{player.last_name}}</h1><br />
+{% endblock %}
+
+{% block players %}
+	{% for statsheet in player.statsheet_set.all %}
+		{{ statsheet.game_day}}
+	{% endfor %}
+
+	<a href="{% url 'player:index' ">Back to Players</a>
+{% endblock %}
+
+
+
