@@ -44,22 +44,45 @@ def index(request):
 def detail(request, team_id):
     team = get_object_or_404(Team, pk=team_id)
     if request.method == 'POST':
-        form = AddPlayerForm(request.POST)
-        if form.is_valid():
-            new_player = Player()
-            new_player.first_name = form.cleaned_data['first_name']
-            new_player.last_name = form.cleaned_data['last_name']
-            new_player.number = form.cleaned_data['number']
-            new_player.save()
-            team.players.add(new_player)
+        if 'add-available' in request.POST:
+            add_player = Player.objects.get(pk=request.POST['add-player'])
+            team.players.add(add_player)
             new_form = AddPlayerForm()
-            context = {'team': team, 'form': new_form}
-            render(request, 'team/index.html', context)
+            team_players = team.players.all()
+            all_players = Player.objects.all()
+            available_players = []
+            for player in all_players:
+                if player not in team_players:
+                    available_players.append(player)
+            context = {'team': team, 'form': new_form, 'available_players': available_players }
+            return render(request, 'team/detail.html', context)
+        else:
+            form = AddPlayerForm(request.POST)
+            if form.is_valid():
+                new_player = Player()
+                new_player.first_name = form.cleaned_data['first_name']
+                new_player.last_name = form.cleaned_data['last_name']
+                new_player.number = form.cleaned_data['number']
+                new_player.save()
+                team.players.add(new_player)
+                new_form = AddPlayerForm()
+                team_players = team.players.all()
+                all_players = Player.objects.all()
+                available_players = []
+                for player in all_players:
+                    if player not in team_players:
+                        available_players.append(player)
+                context = {'team': team, 'form': new_form, 'available_players': available_players }
+                return render(request, 'team/detail.html', context)
     else:
         form = AddPlayerForm()
-    team_players = team.
-    available_players = Player.objects.exclude()
-    context = {'team': team, 'form': form, 'available_players': available_players}
+    team_players = team.players.all()
+    all_players = Player.objects.all()
+    available_players = []
+    for player in all_players:
+        if player not in team_players:
+            available_players.append(player)
+    context = {'team': team, 'form': form, 'available_players': available_players }
     return render(request, 'team/detail.html', context)
 
 

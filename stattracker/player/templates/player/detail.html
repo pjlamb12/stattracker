@@ -5,13 +5,74 @@
 	<h1>{{player.first_name}} {{player.last_name}}</h1><br />
 {% endblock %}
 
-{% block players %}
-	{% for statsheet in player.statsheet_set.all %}
-		{{ statsheet.game_day}}
-	{% endfor %}
-
-	<a href="{% url 'player:index' ">Back to Players</a>
+{% block player %}
+	{% if statsheets %}
+		<form class="form-horizontal" action="{% url 'player:detail' player.id %}" method="post">
+		{% csrf_token %}
+			{% for statsheet in statsheets %}
+				<label class="text-primary" for="statsheet{{statsheet.id}}">
+					<input type="radio" id="statsheet{{statsheet.id}}" name="delete-stats" value="{{ statsheet.id }}" />
+					<big>Game {{forloop.counter}}</big>
+				</label>
+				{{ statsheet.game_day}} <br />
+				Offensive Rebounds: {{statsheet.offensive_rebounds}}, Defensive Rebounds: {{statsheet.defensive_rebounds}}, Assists: {{statsheet.assists}}<br />Points: {{statsheet.points}}, Steals: {{statsheet.steals}}, Blocks: {{statsheet.blocks}}
+				<br /><br />
+			{% endfor %}
+			<input type="submit" name="delete" value="Delete Statsheet" />
+		</form>
+	{% endif %}
 {% endblock %}
 
+{% block form %}
+	<form class="form-horizontal" action="{% url 'player:detail' player.id %}" method="post">
+		{% csrf_token %}
+		<div class="control-group">
+			<label class="control-label" for="id_offensive_rebounds">Offensive Rebounds</label>
+			<div class="controls">
+				{{form.offensive_rebounds}}
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="id_defensive_rebounds">Defensive Rebounds</label>
+			<div class="controls">
+				{{form.defensive_rebounds}}
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="id_assists">Assists</label>
+			<div class="controls">
+				{{form.assists}}
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="id_points">Points</label>
+			<div class="controls">
+				{{form.points}}
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="id_steals">Steals</label>
+			<div class="controls">
+				{{form.steals}}
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="id_blocks">Blocks</label>
+			<div class="controls">
+				{{form.blocks}}
+			</div>
+		</div>
+		<div class="control-group">
+			<label class=" control-label" for="id_fouls">Fouls</label>
+			<div class="controls">
+				{{form.fouls}}
+			</div>
+		</div>
+		<input type="submit" name="add" value="Add Statsheet" />
+	</form>
+	<br />
+{% endblock %}
 
-
+{% block links %}
+	<a href="{% url 'player:index' %}">Back to Players</a><br />
+{% endblock %}

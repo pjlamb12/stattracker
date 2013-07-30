@@ -126,6 +126,7 @@ INSTALLED_APPS = (
     'team',
     'statsheet',
     'home',
+    'game',
 )
 
 # A sample logging configuration. The only tangible logging

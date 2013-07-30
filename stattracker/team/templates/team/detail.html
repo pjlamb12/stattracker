@@ -8,19 +8,37 @@
 	<form action="{% url 'team:detail' team.id %}" method="post">
 		{% csrf_token %}
 		{{ form.as_p }}
-		<input type="submit" value="Add Player" />
+		<input type="submit" name="add-new" value="Add Player" />
 	</form>
-	<a href="{% url 'team:index' %}">Back to Teams</a>
 {% endblock %}
 
 {% block players_list %}
-	<ul class="unstyled">
-		{% for player in team.players.all %}
-			<li><a href="/player/{{ player.id }}">{{ player.number }} {{ player.first_name }} {{ player.last_name }}</a></li>
-		{% endfor %}
-	</ul>
+	{% if team.players.all %}
+		<h3>{{team.team_name}} Players</h3>
+		<ul class="unstyled">
+			{% for player in team.players.all %}
+				<li><a href="/player/{{ player.id }}">{{ player.number }} {{ player.first_name }} {{ player.last_name }}</a></li>
+			{% endfor %}
+		</ul>
+	{% endif %}
 {% endblock %}
 
 {% block available_players %}
+	{% if available_players %}
+		<h3>Available Players</h3>
+		<form action="{% url 'team:detail' team.id %}" method="post">
+		{% csrf_token %}
+			{% for player in available_players %}
+				<label for="player{{player.id}}" >
+					<input type="radio" id="player{{player.id}}" name="add-player" value="{{ player.id }}" />
+					<a href="{% url 'player:detail' player.id %}">{{player.first_name}} {{player.last_name}}</a>
+				</label>
+			{% endfor %}
+			<input type="submit" name="add-available" value="Add to Team" />
+		</form>
+	{% endif %}
+{% endblock %}
 
+{% block links %}
+	<a href="{% url 'team:index' %}">Back to Teams</a><br />
 {% endblock %}

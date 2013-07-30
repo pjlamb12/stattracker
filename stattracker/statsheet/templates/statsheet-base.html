@@ -12,10 +12,9 @@
 				<div class="hero-unit">
 					<div class="text-center">
 						{% block header %}{% endblock %}
+						{% block form %}{% endblock %}
 						{% block players_list %}{% endblock %}
 						{% block player %}{% endblock %}
-						{% block form %}{% endblock %}
-						{% block links %}{% endblock %}
 						<a href="{% url 'home:index' %} ">Go Home</a>
 					</div>
 				</div>
