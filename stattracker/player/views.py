@@ -42,13 +42,13 @@ def index(request):
 
 
 class AddStatsheetForm(forms.Form):
-    offensive_rebounds = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    defensive_rebounds = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    assists = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    points = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    steals = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    blocks = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    fouls = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    offensive_rebounds = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'input-xlarge'}))
+    defensive_rebounds = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'input-xlarge'}))
+    assists = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'input-xlarge'}))
+    points = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'input-xlarge'}))
+    steals = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'input-xlarge'}))
+    blocks = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'input-xlarge'}))
+    fouls = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'input-xlarge'}))
 
 
 def detail(request, player_id):
